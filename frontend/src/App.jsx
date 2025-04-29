@@ -8,9 +8,11 @@ import Noteslist from "./components/Noteslist";
 import CreateNote from "./components/CreateNote";
 import CreateUser from "./components/CreateUser";
 
+import Finalview from './screens/final-view.jsx';
+
 function App() {
   return (
-    <Router>
+   /*  <Router>
       <Navigation />
       <div className="container p-4">
       <Routes>
@@ -20,7 +22,11 @@ function App() {
         <Route path="/user" element={<CreateUser />} />
       </Routes>
       </div>
-    </Router>
+    </Router> */
+    <div>
+    <Finalview/>
+  </div>
+
   );
 }
 
