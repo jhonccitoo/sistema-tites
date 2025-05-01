@@ -16,26 +16,22 @@ import TarjetaTesista from "./screens/asesor-carpetafinal.jsx";
 
 function App() {
   return (
-    /*  <Router>
+    <Router>
       <Navigation />
       <div className="container p-4">
-      <Routes>
-        <Route path="/" element={<Noteslist />} />
-        <Route path="/edit/:id" element={<CreateNote />} />
-        <Route path="/create" element={<CreateNote />} />
-        <Route path="/user" element={<CreateUser />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Noteslist />} />
+          <Route path="/edit/:id" element={<CreateNote />} />
+          <Route path="/create" element={<CreateNote />} />
+          <Route path="/user" element={<CreateUser />} />
+        </Routes>
       </div>
-    </Router> */
-    /*   <div>
-    <Finalview/>
-  </div>
- */
+    </Router>
 
-    <div>
-      <Finalview />
+    /*   <div>
+      <Login />
     </div>
-    
+     */
   );
 }
 

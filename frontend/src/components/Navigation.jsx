@@ -8,7 +8,7 @@ export default class Navigation extends Component {
   render() {
     return (
       <>
-        <Navbar bg="light" data-bs-theme="light">
+        <Navbar bg="dark" data-bs-theme="dark">
           <Container>
             <Navbar.Brand href="/">NotesApp</Navbar.Brand>
             <Nav className="me-right">
