@@ -9,6 +9,7 @@ import CreateNote from "./components/CreateNote";
 import CreateUser from "./components/CreateUser";
 
 import Finalview from './screens/final-view.jsx';
+import Login from "./screens/login.jsx";
 
 function App() {
   return (
@@ -23,10 +24,14 @@ function App() {
       </Routes>
       </div>
     </Router> */
-    <div>
+  /*   <div>
     <Finalview/>
   </div>
+ */
 
+  <div>
+    <Login/>
+  </div>
   );
 }
 
