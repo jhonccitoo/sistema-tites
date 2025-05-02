@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+// src/database.js
+const mongoose = require('mongoose');
+require('dotenv').config(); // Carga .env si es necesario aquí
 
-const URI = "mongodb+srv://202111367:202111367@cluster0.3bnwcia.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.ATLAS_URI;
 
-mongoose.connect(URI)
-  .then(() => {
-    console.log("Database connected");
-  })
-  .catch((err) => {
-    console.error("Database connection error:", err);
-  });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB database connection established successfully'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// No necesitas exportar nada si solo quieres ejecutar la conexión.

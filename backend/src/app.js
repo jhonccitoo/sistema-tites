@@ -4,20 +4,29 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-
-//settings
 const app = express();
-app.set("port",process.env.PORT || 4000);
+const port = process.env.PORT || 4000;
 
-
-//middlewares
 app.use(cors());
 app.use(express.json());
 
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log('MongoDB database connection established successfully');
+});
 
-//Routes
-app.use("/api/users",require("./routes/users"));
-app.use("/api/notes", require("./routes/notes"));
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth'); // Importa la ruta de autenticación
+const notesRouter = require('./routes/notes'); // !!! IMPORTA EL ENRUTADOR DE NOTAS !!!
 
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter); // Usa el prefijo /api/auth para las rutas de autenticación
+app.use('/api/notes', notesRouter); // !!! MONTA EL ENRUTADOR DE NOTAS EN LA RUTA /api/notes !!!
 
 module.exports = app;
+
+//app.listen(port, () => {
+// console.log(`Server is running on port: ${port}`);
+//});

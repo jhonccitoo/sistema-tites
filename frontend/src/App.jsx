@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Navigation from "./components/Navigation";
-import Noteslist from "./components/Noteslist";
+import Noteslist from "./components/NotesList.jsx";
 import CreateNote from "./components/CreateNote";
 import CreateUser from "./components/CreateUser";
 import TesistaView from "./screens/tesista-view.jsx";
