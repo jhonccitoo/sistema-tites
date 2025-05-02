@@ -1,127 +1,252 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Hook para redirigir
+import { useNavigate } from 'react-router-dom'; // <---- IMPORTA useNavigate
 
+const Login = () => {
+  const [formValidated, setFormValidated] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
 
-function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Obtiene la función de navegación
-
-  const onChangeInput = (e) => {
-    const { name, value } = e.target;
-    if (name === 'username') {
-      setUsername(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
+  const [loginError, setLoginError] = useState('');
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setIsLoading(true);
+    const form = e.target;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    } else {
+      try {
+        const response = await axios.post('http://localhost:4000/api/auth/login', formData);
+        console.log('Respuesta completa del backend (ÉXITO):', response); // <---- AGREGADO
+        console.log('Código de estado de la respuesta (ÉXITO):', response.status); // <---- AGREGADO
+        console.log('Datos de la respuesta (ÉXITO):', response.data); // <---- AGREGADO
+        console.log('Token recibido (ÉXITO):', response.data.token); // Verifica si el token está aquí
+        console.log('Datos del usuario (ÉXITO):', response.data.user); // Verifica si los datos del usuario están aquí
 
-    if (!username || !password) {
-        setError("Username and password are required.");
-        setIsLoading(false);
-        return;
-    }
-
-    try {
-      // Llama a tu endpoint de login en el backend
-      // Asegúrate de crear esta ruta en tu backend (ej: POST /api/auth/login)
-      const response = await axios.post('http://localhost:4000/api/auth/login', {
-        username,
-        password,
-      });
-
-      // --- Manejo de la Respuesta del Backend ---
-      // El backend debería responder con éxito y, comúnmente, un token (JWT)
-      // o establecer una cookie de sesión. Aquí asumimos que devuelve un token.
-      console.log('Login successful:', response.data); // Verifica qué devuelve el backend
-
-      // Ejemplo: Si el backend devuelve un token JWT en response.data.token
-      if (response.data.token) {
-        localStorage.setItem('authToken', response.data.token); // Guarda el token en localStorage
-        // Podrías guardar también datos del usuario si los necesitas globalmente
-        // localStorage.setItem('userData', JSON.stringify(response.data.user));
-
-         // Redirige al usuario a la página principal (o dashboard)
-         // Puedes ajustar la ruta según tu aplicación
-         navigate('/notas'); // Redirige a la lista de notas, por ejemplo
-
-        // Opcional: Recargar la ventana para asegurar que todo se actualice
-        // window.location.reload();
-      } else {
-          // Si el backend no devuelve lo esperado
-           setError("Login failed. Please try again.");
+        if (response.data.token) {
+          localStorage.setItem('authToken', response.data.token);
+          navigate('/dashboard');
+        } else {
+          setLoginError('Inicio de sesión exitoso, pero no se recibió el token.');
+        }
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        let errorMessage = 'Error al iniciar sesión. Inténtelo de nuevo.';
+        if (error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        }
+        setLoginError(errorMessage);
       }
-
-
-    } catch (err) {
-      console.error('Login error:', err);
-      // Muestra un mensaje de error genérico o uno específico del backend
-      const message = err.response?.data?.message || 'Invalid username or password.';
-      setError(message);
-    } finally {
-      setIsLoading(false);
     }
+    setFormValidated(true);
   };
+
+  
+
+  const style = `
+    :root {
+      --primary-color: #28a745;
+      --secondary-color: #6c757d;
+      --light-gray: #f8f9fa;
+      --medium-gray: #e9ecef;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #212529;
+      padding: 1rem;
+    }
+
+    .login-card {
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      background: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .login-title {
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .form-control {
+      border-radius: 25px;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid #ced4da;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      transform: translateY(-2px);
+    }
+
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .forgot-password {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 576px) {
+      .login-card {
+        padding: 1.5rem;
+      }
+    }
+
+    .btn-register {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 25px;
+      padding: 0.75rem;
+      font-weight: 500;
+      width: 100%;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .btn-register:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+  `;
 
   return (
-    
-    <div className="row justify-content-center mt-5"> {/* Centra el contenido */}
-      <div className="col-md-6 col-lg-4"> {/* Limita el ancho */}
-        <div className="card card-body shadow-sm"> {/* Añade sombra */}
-          <h3 className="text-center mb-4">Login</h3> {/* Título centrado */}
-          <form onSubmit={onSubmit}>
-            <div className="form-group mb-3">
-              <label htmlFor="login-username">Username</label>
-              <input
-                type="text"
-                id="login-username" // ID para el label
-                className="form-control"
-                placeholder="Enter your username"
-                name="username"
-                value={username}
-                onChange={onChangeInput}
-                required
-                disabled={isLoading}
-              />
-            </div>
-            <div className="form-group mb-4">
-              <label htmlFor="login-password">Password</label>
-              <input
-                type="password"
-                id="login-password" // ID para el label
-                className="form-control"
-                placeholder="Enter your password"
-                name="password"
-                value={password}
-                onChange={onChangeInput}
-                required
-                disabled={isLoading}
-              />
-            </div>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: style }} />
+      <main className="login-card" role="main">
+        <h1 className="login-title">TITES - URP</h1>
+        <form 
+          className={formValidated ? 'was-validated' : ''} 
+          noValidate 
+          onSubmit={handleSubmit}
+        >
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">Usuario</label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              name="username"
+              placeholder="Ingrese su usuario"
+              required
+              aria-required="true"
+              autoComplete="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <div className="invalid-feedback">Por favor ingrese su usuario</div>
+          </div>
 
-             {/* Mostrar Errores */}
-             {error && <div className="alert alert-danger">{error}</div>}
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Clave</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              placeholder="Ingrese su clave"
+              required
+              aria-required="true"
+              autoComplete="current-password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <div className="invalid-feedback">Por favor ingrese su clave</div>
+          </div>
 
-            <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Login'}
-            </button>
-          </form>
-          {/* Opcional: Enlace para registrarse */}
-          {/* <div className="mt-3 text-center">
-            Don't have an account? <Link to="/user">Sign Up</Link>
-          </div> */}
-        </div>
-      </div>
-    </div>
+          <button type="submit" className="btn btn-login w-100 mt-3">
+            <span className="btn-text">Ingresar</span>
+            <span className="sr-only">al sistema TITES</span>
+          </button>
+
+          <button type="button" className="btn btn-register">
+            Registrarse
+          </button>
+
+          <a href="#" className="forgot-password">¿Olvidó su contraseña?</a>
+        </form>
+      </main>
+    </>
   );
-}
+};
 
 export default Login;

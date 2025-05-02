@@ -62,7 +62,7 @@ function CreateNote() {
       await axios.post("http://localhost:4000/api/notes", newNote);
     }
 
-    window.location.href = "/";
+    window.location.href = "/notas";
   };
 
   const onInputChange = (e) => {
