@@ -8,16 +8,18 @@ export default class Navigation extends Component {
   render() {
     return (
       <>
-        <Navbar bg="dark" data-bs-theme="dark">
-          <Container>
-            <Navbar.Brand href="/">NotesApp</Navbar.Brand>
-            <Nav className="me-right">
-              <Nav.Link href="/">Notes</Nav.Link>
-              <Nav.Link href="/create">Create Note</Nav.Link>
-              <Nav.Link href="/user">Create User</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
+       <Navbar bg="light" data-bs-theme="light">
+            <Container>
+              <Navbar.Brand href="/">TITES - URP</Navbar.Brand>
+              <Nav className="me-right">
+                <Nav.Link href="/notas">Formularios</Nav.Link>
+                <Nav.Link href="/create">Crear Formularios</Nav.Link>
+                <Nav.Link href="/user">Create User</Nav.Link>
+                <Nav.Link href="/TesistaView">FINAL</Nav.Link>
+              </Nav>
+            </Container>
+          </Navbar>
+      
       </>
     );
   }
