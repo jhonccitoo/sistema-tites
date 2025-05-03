@@ -47,21 +47,21 @@ const Login = () => {
             navigate('/TesistaView'); // Redirige tesista
           } else if (userRole === 'admin') {
             navigate('/user');   // Redirige admin
-          } else if (userRole === 'ASESOR') {
+          } else if (userRole === 'asesor') {
              navigate('/notas'); // O redirige a notas por ahora
-          } else if (userRole === 'TESISTA') {
+          } else if (userRole === 'tesista') {
             navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'REVISOR1') {
+          } else if (userRole === 'revisor1') {
             navigate('/Finalview');   // Redirige admin
-          } else if (userRole === 'REVISOR2') {
+          } else if (userRole === 'revisor2') {
              navigate('/TesistaView'); // O redirige a notas por ahora
-          } else if (userRole === 'COORDINADOR ACADEMICO') {
+          } else if (userRole === 'coordinador academico') {
             navigate('/TesistaView');   // Redirige admin
-          } else if (userRole === 'COORDINADOR GENERAL') {
+          } else if (userRole === 'coordinador general') {
              navigate('/user'); // O redirige a notas por ahora
-          } else if (userRole === 'SECRETARIA') {
+          } else if (userRole === 'secretaria') {
             navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'METDOLOGO') {
+          } else if (userRole === 'metodologo') {
             navigate('/Finalview');   // Redirige admin
           } else{
             console.warn('Rol de usuario no reconocido, redirigiendo a /notas');

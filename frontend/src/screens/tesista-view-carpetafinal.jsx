@@ -29,13 +29,10 @@ function TesistaViewCarpeta() {
             <Button variant="light" className="text-start">
               Inicio
             </Button>
-            <Button variant="light" className="text-start active">
+            <Button variant="light" className="text-start ">
               Revisión
             </Button>
-            <Button variant="light" className="text-start">
-              Firmas
-            </Button>
-            <Button variant="light" className="text-start">
+            <Button variant="light" className="text-start active">
               Carpeta Final
             </Button>
           </div>

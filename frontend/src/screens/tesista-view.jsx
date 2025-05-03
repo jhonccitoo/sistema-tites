@@ -12,6 +12,7 @@ function TesistaView() {
           style={{ width: "830px" }}
           className="bg-success text-white min-vh-100 p-3"
         >
+          
           <div className="text-center mb-4">
             <img
               src={logoUniversidad}
@@ -26,15 +27,14 @@ function TesistaView() {
             </div>
           </div>
 
+          
+
           <div className="d-grid gap-2">
             <Button variant="light" className="text-start">
               Inicio
             </Button>
             <Button variant="light" className="text-start active">
               Revisión
-            </Button>
-            <Button variant="light" className="text-start">
-              Firmas
             </Button>
             <Button variant="light" className="text-start">
               Carpeta Final
@@ -74,7 +74,7 @@ function TesistaView() {
                 </div>
               </div>
 
-              {usuario?.rol !== 'TESISTA' && (
+              {usuario?.rol !== 'tesista' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
@@ -122,7 +122,7 @@ function TesistaView() {
                 </div>
               </div>
 
-              {usuario?.rol !== 'TESISTA' && (
+              {usuario?.rol !== 'tesista' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
@@ -169,7 +169,7 @@ function TesistaView() {
               </div>
 
               {/* APROBADO / DESAPROBADO (Mostrar solo si el rol NO es 'TESISTA') */}
-              {usuario?.rol !== 'TESISTA' && (
+              {usuario?.rol !== 'tesista' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
