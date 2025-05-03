@@ -22,7 +22,7 @@ function TesistaView() {
             <h4 className="fw-bold"> TITES </h4>
             <div className="mt-5">
             <h5>{usuario?.rol || 'Rol'}</h5> {/* Mostrar el rol del usuario */}
-              <small>{usuario?.rol ? 'Usuario ' + usuario.rol : 'Rol'}</small>
+              <small>{usuario?.rol ? 'USUARIO:' + usuario.rol : 'Rol'}</small>
             </div>
           </div>
 
@@ -74,7 +74,7 @@ function TesistaView() {
                 </div>
               </div>
 
-              {/* APROBADO / DESAPROBADO */}
+              {usuario?.rol !== 'TESISTA' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
@@ -89,6 +89,8 @@ function TesistaView() {
                   <Button variant="danger">✘</Button>
                 </div>
               </div>
+              )}
+
               <textarea
                 placeholder="Comentarios"
                 className="form-control w-25"
@@ -120,7 +122,7 @@ function TesistaView() {
                 </div>
               </div>
 
-              {/* APROBADO / DESAPROBADO */}
+              {usuario?.rol !== 'TESISTA' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
@@ -135,6 +137,7 @@ function TesistaView() {
                   <Button variant="danger">✘</Button>
                 </div>
               </div>
+              )}
               <textarea
                 placeholder="Comentarios"
                 className="form-control w-25"
@@ -165,7 +168,8 @@ function TesistaView() {
                 </div>
               </div>
 
-              {/* APROBADO / DESAPROBADO */}
+              {/* APROBADO / DESAPROBADO (Mostrar solo si el rol NO es 'TESISTA') */}
+              {usuario?.rol !== 'TESISTA' && (
               <div className="text-center me-4">
                 <small className="d-block fw-bold text-secondary">
                   APROBADO
@@ -180,6 +184,7 @@ function TesistaView() {
                   <Button variant="danger">✘</Button>
                 </div>
               </div>
+              )}
               <textarea
                 placeholder="Comentarios"
                 className="form-control w-25"
