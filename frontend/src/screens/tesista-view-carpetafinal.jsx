@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
+import { Link } from "react-router-dom"; // Importa Link
 
 function TesistaViewCarpeta() {
   return (
