@@ -2,8 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 
-function TesistaView() {
-  const usuario ={rol: localStorage.getItem('userRole')} ;
+function TesistaViewCarpeta() {
   return (
     <Container fluid>
       <Row>
@@ -21,8 +20,8 @@ function TesistaView() {
             />
             <h4 className="fw-bold"> TITES </h4>
             <div className="mt-5">
-            <h5>{usuario?.rol || 'Rol'}</h5> {/* Mostrar el rol del usuario */}
-              <small>{usuario?.rol ? 'Usuario ' + usuario.rol : 'Rol'}</small>
+              <h5>Jorge Carpio</h5>
+              <small>METODÓLOGO</small>
             </div>
           </div>
 
@@ -193,4 +192,4 @@ function TesistaView() {
   );
 }
 
-export default TesistaView;
+export default TesistaViewCarpeta;
