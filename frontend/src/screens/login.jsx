@@ -33,7 +33,7 @@ const Login = () => {
 
         if (response.data.token) {
           localStorage.setItem('authToken', response.data.token);
-          navigate('/dashboard');
+          navigate('/notas');
         } else {
           setLoginError('Inicio de sesión exitoso, pero no se recibió el token.');
         }

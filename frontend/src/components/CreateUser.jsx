@@ -93,17 +93,6 @@ function CreateUser() {
   // --- Renderizado ---
   return (
     <>
-          <Navbar bg="light" data-bs-theme="light">
-            <Container>
-              <Navbar.Brand href="/">TITES URP</Navbar.Brand>
-              <Nav className="me-right">
-                <Nav.Link href="/notas">Formularios</Nav.Link>
-                <Nav.Link href="/create">Crear Formularios</Nav.Link>
-                <Nav.Link href="/user">Create User</Nav.Link>
-                <Nav.Link href="/final">FINAL</Nav.Link>
-              </Nav>
-            </Container>
-          </Navbar>
       
     <div className="row">
       <div className="col-md-4">

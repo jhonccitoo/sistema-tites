@@ -77,6 +77,7 @@ function CreateNote() {
   };
 
   return (
+
     <div className="col-md-6 offset-md-3">
       <div className="card card-body">
         <h4>{state.editing ? "Edit Note" : "Create a Note"}</h4>
@@ -134,6 +135,7 @@ function CreateNote() {
         </form>
       </div>
     </div>
+       
   );
 }
 

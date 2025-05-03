@@ -24,6 +24,7 @@ export default class Noteslist extends Component {
 
   render() {
     return (
+    
       <div className="row">
         {this.state.notes.map((note) => (
           <div className="col-md-4 p-2" key={note._id}>
@@ -52,6 +53,7 @@ export default class Noteslist extends Component {
           </div>
         ))}
       </div>
+   
     );
   }
 }
