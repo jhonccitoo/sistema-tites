@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Noteslist from "./components/NotesList.jsx";
@@ -10,31 +10,36 @@ import Finalview from "./screens/final-view.jsx";
 import Login from "./screens/login.jsx";
 import TarjetaRevision from "./screens/asesor-revision.jsx";
 import TarjetaTesista from "./screens/asesor-carpetafinal.jsx";
+import Navigation from "./components/Navigation"; // Importa tu componente Navigation
 
 function App() {
   return (
     <Router>
-      
-      <div className="container p-4">
-        <Routes>
-          
-          <Route path="/notas" element={<Noteslist />} />
-          <Route path="/edit/:id" element={<CreateNote />} />
-          <Route path="/create" element={<CreateNote />} />
-          <Route path="/user" element={<CreateUser />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/TesistaView" element={<TesistaView />} />
-          <Route path="/Finalview" element={<Finalview />} />
-          <Route path="/TarjetaRevision" element={<TarjetaRevision />} />
-          <Route path="/TarjetaTesista" element={<TarjetaTesista />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        {/* Rutas que SÍ deben mostrar la Navigation */}
+        <Route
+          path="/*"
+          element={
+            <>
+              <Navigation />
+              <div className="container p-4">
+                <Routes>
+                  <Route path="/notas" element={<Noteslist />} />
+                  <Route path="/edit/:id" element={<CreateNote />} />
+                  <Route path="/create" element={<CreateNote />} />
+                  <Route path="/user" element={<CreateUser />} />
+                  <Route path="/TesistaView" element={<TesistaView />} />
+                  <Route path="/Finalview" element={<Finalview />} />
+                  <Route path="/TarjetaRevision" element={<TarjetaRevision />} />
+                  <Route path="/TarjetaTesista" element={<TarjetaTesista />} />
+                </Routes>
+              </div>
+            </>
+          }
+        />
+      </Routes>
     </Router>
-
-    /*   <div>
-       <Navigation />
-    </div>
-     */
   );
 }
 

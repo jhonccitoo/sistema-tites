@@ -7,7 +7,6 @@ import Navbar from "react-bootstrap/Navbar";
 export default class Navigation extends Component {
   render() {
     return (
-    /*
  <> <Navbar bg="light" data-bs-theme="light">
             <Container>
               <Navbar.Brand href="/">TITES - URP</Navbar.Brand>
@@ -20,10 +19,6 @@ export default class Navigation extends Component {
             </Container>
           </Navbar> 
       </>
-*/
-<div>
-<h1>Navegación de prueba</h1>
-</div>
     );
   }
 }
