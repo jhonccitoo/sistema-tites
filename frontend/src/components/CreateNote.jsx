@@ -19,7 +19,8 @@ function CreateNote() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Obtener usuarios
+      // Obtener usuario
+      const loggedInUserRole = localStorage.getItem('userRole');
       const resUsers = await axios.get("http://localhost:4000/api/users");
       setState((prev) => ({
         ...prev,
