@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // <---- IMPORTA useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formValidated, setFormValidated] = useState(false);
@@ -12,7 +12,7 @@ const Login = () => {
 
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
-  
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -20,34 +20,82 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
+    setLoginError(''); // Limpia errores anteriores
+
     if (!form.checkValidity()) {
       e.stopPropagation();
+      setFormValidated(true); // Muestra validaciones si el form no es válido
     } else {
       try {
         const response = await axios.post('http://localhost:4000/api/auth/login', formData);
-        console.log('Respuesta completa del backend (ÉXITO):', response); // <---- AGREGADO
-        console.log('Código de estado de la respuesta (ÉXITO):', response.status); // <---- AGREGADO
-        console.log('Datos de la respuesta (ÉXITO):', response.data); // <---- AGREGADO
-        console.log('Token recibido (ÉXITO):', response.data.token); // Verifica si el token está aquí
-        console.log('Datos del usuario (ÉXITO):', response.data.user); // Verifica si los datos del usuario están aquí
+        console.log('Datos de la respuesta (ÉXITO):', response.data); // Depuración
 
-        if (response.data.token) {
+        // Verifica que la respuesta contenga token Y datos del usuario con rol
+        if (response.data.token && response.data.user) {
+          // Guarda el token
           localStorage.setItem('authToken', response.data.token);
-          navigate('/notas');
+
+          // Obtén el rol del usuario
+          const userRole = response.data.user.username;
+
+          // (Opcional) Guarda el rol si lo necesitas en otras partes de la app
+          localStorage.setItem('userRole', userRole);
+
+          // --- LÓGICA DE REDIRECCIÓN ---
+          console.log(`Usuario logueado con rol: ${userRole}`); // Depuración
+          if (userRole === 'TESISTA') {
+            navigate('/TesistaView'); // Redirige tesista
+          } else if (userRole === 'admin') {
+            navigate('/user');   // Redirige admin
+          } else if (userRole === 'ASESOR') {
+             navigate('/notas'); // O redirige a notas por ahora
+          } else if (userRole === 'TESISTA') {
+            navigate('/TesistaView'); // Redirige tesista
+          } else if (userRole === 'REVISOR1') {
+            navigate('/Finalview');   // Redirige admin
+          } else if (userRole === 'REVISOR2') {
+             navigate('/TesistaView'); // O redirige a notas por ahora
+          } else if (userRole === 'COORDINADOR ACADEMICO') {
+            navigate('/TesistaView');   // Redirige admin
+          } else if (userRole === 'COORDINADOR GENERAL') {
+             navigate('/user'); // O redirige a notas por ahora
+          } else if (userRole === 'SECRETARIA') {
+            navigate('/TesistaView'); // Redirige tesista
+          } else if (userRole === 'METDOLOGO') {
+            navigate('/Finalview');   // Redirige admin
+          } else{
+            console.warn('Rol de usuario no reconocido, redirigiendo a /notas');
+            navigate('/notas');
+          }
+          // --- FIN LÓGICA DE REDIRECCIÓN ---
         } else {
-          setLoginError('Inicio de sesión exitoso, pero no se recibió el token.');
+          // La respuesta del backend no tiene la estructura esperada
+          console.error('Respuesta del backend incompleta:', response.data);
+          setLoginError('Error en los datos recibidos del servidor.');
         }
+
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
         let errorMessage = 'Error al iniciar sesión. Inténtelo de nuevo.';
+        // Intenta obtener el mensaje de error específico del backend si existe
         if (error.response?.data?.message) {
           errorMessage = error.response.data.message;
+        } else if (error.message) {
+             errorMessage = error.message; // Error de red u otro
         }
         setLoginError(errorMessage);
       }
     }
+    // Mueve setFormValidated aquí para que siempre se active después del submit
+    // y muestre los errores de validación si los hubo inicialmente
     setFormValidated(true);
   };
+
+  // ... (El resto de tu componente Login: const style = ..., return (...))
+  // Asegúrate de mostrar el `loginError` en algún lugar del JSX si quieres
+  // Ejemplo:
+  // {loginError && <div className="alert alert-danger mt-3">{loginError}</div>}
+  // dentro del <main className="login-card">
 
   
 

@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
             token: token,
             user: { // Devuelve datos seguros del usuario si el frontend los necesita
                 id: user._id,
-                username: user.username
+                username: user.username,
             }
         });
 

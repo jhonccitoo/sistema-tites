@@ -13,7 +13,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+
+
+    
     // Puedes añadir otros campos como email, name, createdAt, etc.
 }, {
     timestamps: true // Añade createdAt y updatedAt automáticamente

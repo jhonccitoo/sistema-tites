@@ -13,8 +13,6 @@ export default class Navigation extends Component {
               <Nav className="me-right">
                 <Nav.Link href="/notas">Formularios</Nav.Link>
                 <Nav.Link href="/create">Crear Formularios</Nav.Link>
-                <Nav.Link href="/user">Create User</Nav.Link>
-                <Nav.Link href="/TesistaView">FINAL</Nav.Link>
               </Nav>
             </Container>
           </Navbar> 
