@@ -53,7 +53,6 @@ export default class Noteslist extends Component {
           </div>
         ))}
       </div>
-   
     );
   }
 }

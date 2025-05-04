@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-const usuario ={rol: localStorage.getItem('userRole')} ;
 
 export default class Navigation extends Component {
   render() {
+    const usuario ={rol: localStorage.getItem('userRole')} ;
     return (
  <> <Navbar bg="light" data-bs-theme="light">
             <Container>

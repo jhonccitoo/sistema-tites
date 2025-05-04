@@ -6,8 +6,7 @@ import Noteslist from "./components/NotesList.jsx";
 import CreateNote from "./components/CreateNote";
 import CreateUser from "./components/CreateUser";
 import TesistaView from "./screens/tesista-view.jsx";
-import TesistaViewCarpeta from "./screens/tesista-view-carpetafinal.jsx";
-
+import TesistaFinalView from "./screens/tesista-view-carpetafinal.jsx";
 import Finalview from "./screens/final-view.jsx";
 import Login from "./screens/login.jsx";
 import Navigation from "./components/Navigation"; // Importa tu componente Navigation
@@ -31,7 +30,7 @@ function App() {
                   <Route path="/create" element={<CreateNote />} />
                   <Route path="/user" element={<CreateUser />} />
                   <Route path="/TesistaView" element={<TesistaView />} />
-                  <Route path="/TesistaViewCarpeta" element={<TesistaViewCarpeta />} />
+                  <Route path="/TesistaFinalView" element={<TesistaFinalView />} />
                   <Route path="/Finalview" element={<Finalview />} />
                 </Routes>
               </div>

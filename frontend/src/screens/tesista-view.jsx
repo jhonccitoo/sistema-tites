@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom"; // Importa Link
+import Noteslist from "../components/NotesList";
 
 function TesistaView() {
   const usuario ={rol: localStorage.getItem('userRole')} ;
@@ -28,26 +29,26 @@ function TesistaView() {
             </div>
           </div>
 
-          
-
           <div className="d-grid gap-2">
-            <Link to="/login" className="btn btn-light text-start">
+            <Link to="/" className="btn btn-light text-start">
               Inicio
             </Link>
             <Link to="/TesistaView" className="btn btn-light text-start active">
               Revisión
             </Link>
-            <Link to="/TesistaViewCarpeta" className="btn btn-light text-start">
+            <Link to="/TesistaFinalView" className="btn btn-light text-start">
               Carpeta Final
             </Link>
           </div>
 
-          <div className="mt-5 text-center">
-            <Button variant="outline-light" size="sm">
-              Salir
-            </Button>
-          </div>
-        </Col>
+         <div className="mt-5 text-center">
+                     <Button variant="outline-light" size="sm">
+                     <Link to="/">
+                     Salir
+                     </Link>
+                     </Button>
+                   </div>
+                 </Col>
 
         {/* Main Content */}
         <Col md={10} className="p-4">
