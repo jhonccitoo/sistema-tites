@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"; // Importa Link
 import Noteslist from "../components/NotesList";
 
 function TesistaView() {
-  const usuario ={rol: localStorage.getItem('userRole')} ;
+  const usuario = { rol: localStorage.getItem("userRole") };
   return (
     <Container fluid>
       <Row>
@@ -14,7 +14,6 @@ function TesistaView() {
           style={{ width: "830px" }}
           className="bg-success text-white min-vh-100 p-3"
         >
-          
           <div className="text-center mb-4">
             <img
               src={logoUniversidad}
@@ -24,8 +23,9 @@ function TesistaView() {
             />
             <h4 className="fw-bold"> TITES </h4>
             <div className="mt-5">
-            <h5>{usuario?.rol || 'Rol'}</h5> {/* Mostrar el rol del usuario */}
-              <small>{usuario?.rol ? 'USUARIO:' + usuario.rol : 'Rol'}</small>
+              <h5>{usuario?.rol || "Rol"}</h5>{" "}
+              {/* Mostrar el rol del usuario */}
+              <small>{usuario?.rol ? "USUARIO:" + usuario.rol : "Rol"}</small>
             </div>
           </div>
 
@@ -41,14 +41,12 @@ function TesistaView() {
             </Link>
           </div>
 
-         <div className="mt-5 text-center">
-                     <Button variant="outline-light" size="sm">
-                     <Link to="/">
-                     Salir
-                     </Link>
-                     </Button>
-                   </div>
-                 </Col>
+          <div className="mt-5 text-center">
+            <Button variant="outline-light" size="sm">
+              <Link to="/">Salir</Link>
+            </Button>
+          </div>
+        </Col>
 
         {/* Main Content */}
         <Col md={10} className="p-4">
@@ -75,22 +73,22 @@ function TesistaView() {
                   <Button variant="outline-success">⬆</Button>
                 </div>
               </div>
-
-              {usuario?.rol !== 'tesista' && (
-              <div className="text-center me-4">
-                <small className="d-block fw-bold text-secondary">
-                  APROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="success">✔</Button>
+       
+              {usuario?.rol !== "tesista" && (
+                <div className="text-center me-4">
+                  <small className="d-block fw-bold text-secondary">
+                    APROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="success">✔</Button>
+                  </div>
+                  <small className="d-block fw-bold text-secondary mt-2">
+                    DESAPROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="danger">✘</Button>
+                  </div>
                 </div>
-                <small className="d-block fw-bold text-secondary mt-2">
-                  DESAPROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="danger">✘</Button>
-                </div>
-              </div>
               )}
 
               <textarea
@@ -124,21 +122,21 @@ function TesistaView() {
                 </div>
               </div>
 
-              {usuario?.rol !== 'tesista' && (
-              <div className="text-center me-4">
-                <small className="d-block fw-bold text-secondary">
-                  APROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="success">✔</Button>
+              {usuario?.rol !== "tesista" && (
+                <div className="text-center me-4">
+                  <small className="d-block fw-bold text-secondary">
+                    APROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="success">✔</Button>
+                  </div>
+                  <small className="d-block fw-bold text-secondary mt-2">
+                    DESAPROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="danger">✘</Button>
+                  </div>
                 </div>
-                <small className="d-block fw-bold text-secondary mt-2">
-                  DESAPROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="danger">✘</Button>
-                </div>
-              </div>
               )}
               <textarea
                 placeholder="Comentarios"
@@ -171,21 +169,21 @@ function TesistaView() {
               </div>
 
               {/* APROBADO / DESAPROBADO (Mostrar solo si el rol NO es 'TESISTA') */}
-              {usuario?.rol !== 'tesista' && (
-              <div className="text-center me-4">
-                <small className="d-block fw-bold text-secondary">
-                  APROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="success">✔</Button>
+              {usuario?.rol !== "tesista" && (
+                <div className="text-center me-4">
+                  <small className="d-block fw-bold text-secondary">
+                    APROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="success">✔</Button>
+                  </div>
+                  <small className="d-block fw-bold text-secondary mt-2">
+                    DESAPROBADO
+                  </small>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <Button variant="danger">✘</Button>
+                  </div>
                 </div>
-                <small className="d-block fw-bold text-secondary mt-2">
-                  DESAPROBADO
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="danger">✘</Button>
-                </div>
-              </div>
               )}
               <textarea
                 placeholder="Comentarios"
