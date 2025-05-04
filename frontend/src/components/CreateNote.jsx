@@ -5,9 +5,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function CreateNote() {
+  const loggedInUserRole = localStorage.getItem('userRole') || "";
   const [state, setState] = useState({
-    users: [],
-    userSelected: "",
+    users: loggedInUserRole ? [loggedInUserRole] : [], // Inicializar users con el rol logueado
+    userSelected: loggedInUserRole, // Inicializar userSelected con el rol logueado
     title: "",
     content: "",
     date: new Date(),
@@ -20,13 +21,12 @@ function CreateNote() {
   useEffect(() => {
     const fetchData = async () => {
       // Obtener usuario
-      const loggedInUserRole = localStorage.getItem('userRole');
-      const resUsers = await axios.get("http://localhost:4000/api/users");
+      /*const resUsers = await axios.get("http://localhost:4000/api/users");
       setState((prev) => ({
         ...prev,
         users: resUsers.data.map((user) => user.username),
         userSelected: resUsers.data[0]?.username || "",
-      }));
+      }));*/
 
       // Si hay un ID en la URL, cargar la nota
       if (id) {
@@ -78,7 +78,6 @@ function CreateNote() {
   };
 
   return (
-
     <div className="col-md-6 offset-md-3">
       <div className="card card-body">
         <h4>{state.editing ? "Edit Note" : "Create a Note"}</h4>
