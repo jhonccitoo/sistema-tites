@@ -81,7 +81,7 @@ function CreateNote() {
       <div className="card card-body">
         <h4>{state.editing ? "Edit Note" : "Create a Note"}</h4>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <select
             className="form-control"
             name="userSelected"
@@ -96,7 +96,7 @@ function CreateNote() {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <input
             type="text"
             className="form-control"
@@ -108,7 +108,7 @@ function CreateNote() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <textarea
             name="content"
             className="form-control"
@@ -119,7 +119,7 @@ function CreateNote() {
           ></textarea>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <DatePicker
             className="form-control"
             selected={state.date}
