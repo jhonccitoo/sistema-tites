@@ -4,12 +4,23 @@ import axios from "axios";
 const CreateUser = () => {
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000); // desaparece en 3 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const getUsers = async () => {
     try {
@@ -27,16 +38,39 @@ const CreateUser = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
+
+    // Validación mejorada
+    if (!username.trim() || !password.trim()) {
+      setError("Username y password son obligatorios");
+      return;
+    }
+    if (!username.trim() || /\s/.test(username)) {
+      setError("El nombre de usuario no puede contener espacios");
+      return;
+    }
 
     try {
       setLoading(true);
-      await axios.post("http://localhost:4000/api/users", { username });
+      setError(""); // Limpiar errores previos
+
+      await axios.post("http://localhost:4000/api/users", {
+        username: username.trim(),
+        password: password,
+      });
+
+      // Resetear formulario
       setUsername("");
+      setPassword("");
+
+      // Recargar lista de usuarios
       await getUsers();
     } catch (err) {
-      setError("Error al crear usuario");
-      console.error(err);
+      // Manejo de errores más detallado
+      const errorMessage =
+        err.response?.data?.message || "Error al crear usuario";
+
+      setError(errorMessage);
+      console.error("Error en onSubmit:", err);
     } finally {
       setLoading(false);
     }
@@ -73,6 +107,16 @@ const CreateUser = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter username"
+                disabled={loading}
+              />
+            </div>
+            <div className="form-group mb-3">
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
                 disabled={loading}
               />
             </div>
