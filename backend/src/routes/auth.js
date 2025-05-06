@@ -19,12 +19,8 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials.' });
         }
 
-        // 2. Comparar la contraseña proporcionada con el hash almacenado
-        // Usando el método del schema:
         const isMatch = await user.comparePassword(password);
-        // O directamente con bcrypt:
-        // const isMatch = await bcrypt.compare(password, user.password);
-
+        
         if (!isMatch) {
             // ¡Importante! Mensaje genérico también aquí.
             return res.status(401).json({ message: 'Invalid credentials.' });
@@ -39,8 +35,6 @@ router.post('/login', async (req, res) => {
             // Puedes añadir más datos no sensibles si quieres (ej: roles)
         };
 
-        // Necesitas una clave secreta para firmar el JWT (¡Guárdala de forma segura!)
-        // Debería estar en tus variables de entorno (process.env.JWT_SECRET)
         const jwtSecret = process.env.JWT_SECRET || 'TU_CLAVE_SECRETA_MUY_SEGURA'; // ¡CAMBIAR ESTO!
 
         const token = jwt.sign(

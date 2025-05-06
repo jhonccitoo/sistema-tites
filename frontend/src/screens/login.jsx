@@ -20,19 +20,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    setLoginError(''); // Limpia errores anteriores
+    setLoginError(''); 
 
     if (!form.checkValidity()) {
       e.stopPropagation();
-      setFormValidated(true); // Muestra validaciones si el form no es válido
+      setFormValidated(true); 
     } else {
       try {
         const response = await axios.post('http://localhost:4000/api/auth/login', formData);
         console.log('Datos de la respuesta (ÉXITO):', response.data); // Depuración
-
-        // Verifica que la respuesta contenga token Y datos del usuario con rol
+  
         if (response.data.token && response.data.user) {
-          // Guarda el token
+          
           localStorage.setItem('authToken', response.data.token);
 
           // Obtén el rol del usuario
@@ -86,18 +85,9 @@ const Login = () => {
         setLoginError(errorMessage);
       }
     }
-    // Mueve setFormValidated aquí para que siempre se active después del submit
-    // y muestre los errores de validación si los hubo inicialmente
-    setFormValidated(true);
+ setFormValidated(true);
   };
 
-  // ... (El resto de tu componente Login: const style = ..., return (...))
-  // Asegúrate de mostrar el `loginError` en algún lugar del JSX si quieres
-  // Ejemplo:
-  // {loginError && <div className="alert alert-danger mt-3">{loginError}</div>}
-  // dentro del <main className="login-card">
-
-  
 
   const style = `
     :root {

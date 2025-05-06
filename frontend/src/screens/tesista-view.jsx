@@ -36,9 +36,14 @@ function TesistaView() {
             <Link to="/TesistaView" className="btn btn-light text-start active">
               Revisión
             </Link>
-            <Link to="/TesistaFinalView" className="btn btn-light text-start">
-              Carpeta Final
-            </Link>
+            {usuario?.rol !== "tesista" && (
+              <Link
+                to="/TesistaFinalView"
+                className="btn btn-light text-start active"
+              >
+                Carpeta Final
+              </Link>
+            )}
           </div>
 
           <div className="mt-5 text-center">
@@ -73,7 +78,7 @@ function TesistaView() {
                   <Button variant="outline-success">⬆</Button>
                 </div>
               </div>
-       
+
               {usuario?.rol !== "tesista" && (
                 <div className="text-center me-4">
                   <small className="d-block fw-bold text-secondary">
@@ -122,53 +127,6 @@ function TesistaView() {
                 </div>
               </div>
 
-              {usuario?.rol !== "tesista" && (
-                <div className="text-center me-4">
-                  <small className="d-block fw-bold text-secondary">
-                    APROBADO
-                  </small>
-                  <div className="d-flex gap-2 justify-content-center">
-                    <Button variant="success">✔</Button>
-                  </div>
-                  <small className="d-block fw-bold text-secondary mt-2">
-                    DESAPROBADO
-                  </small>
-                  <div className="d-flex gap-2 justify-content-center">
-                    <Button variant="danger">✘</Button>
-                  </div>
-                </div>
-              )}
-              <textarea
-                placeholder="Comentarios"
-                className="form-control w-25"
-                style={{ height: "80px", resize: "none" }}
-              ></textarea>
-            </Card.Body>
-          </Card>
-
-          <Card className="mb-3">
-            <Card.Body className="d-flex align-items-center justify-content-between">
-              {/* DESCAGRAR / SUBIR */}
-              <div>
-                <h5 className="mb-0">SAMANIEGO PAQUIRACHI</h5>
-                <small>Tesista</small>
-              </div>
-              <div className="text-center me-4">
-                <small className="d-block fw-bold text-secondary">
-                  DESCARGAR
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="outline-success">⬇</Button>
-                </div>
-                <small className="d-block fw-bold text-secondary mt-2">
-                  SUBIR
-                </small>
-                <div className="d-flex gap-2 justify-content-center">
-                  <Button variant="outline-success">⬆</Button>
-                </div>
-              </div>
-
-              {/* APROBADO / DESAPROBADO (Mostrar solo si el rol NO es 'TESISTA') */}
               {usuario?.rol !== "tesista" && (
                 <div className="text-center me-4">
                   <small className="d-block fw-bold text-secondary">
