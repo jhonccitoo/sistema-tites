@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/* import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import foto from '../assets/foto.jpg';
@@ -97,11 +97,11 @@ function TarjetaRevision({ nombre, fondo = '#c8facc' }) {
   );
 }
 
-function Finalview() {
+function AsesorR() {
   return (
     <Container fluid>
       <Row>
-        {/* INTERFAZ */}
+        
         <Col
           style={{ width: '830px', position: 'sticky', top: 0, height: '100vh' }}
           className="bg-success text-white min-vh-100 p-3"
@@ -166,7 +166,7 @@ function Finalview() {
           </div>
         </Col>
 
-        {/* CONTENIDO PRINCIPAL */}
+ 
         <Col md={10} className="p-4">
           <h4 className="mb-4">F.005</h4>
           <TarjetaRevision nombre="ANDERSON REYES" fondo="#c8facc" />
@@ -177,4 +177,6 @@ function Finalview() {
   );
 }
 
-export default Finalview;
+export default AsesorR;
+
+*/

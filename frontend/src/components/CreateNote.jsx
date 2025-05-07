@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+
+
 
 function CreateNote() {
   const loggedInUserRole = localStorage.getItem('userRole') || "";
@@ -14,21 +18,23 @@ function CreateNote() {
     date: new Date(),
     editing: false,
     _id: "",
+    approvalStatus: '1',
   });
-
+  
+  const handleApprovalChange = (value) => {
+    setState({ ...state, approvalStatus: value });
+  };
+  
+  const radios = [
+    { name: 'DESAPROBADO', value: '1' },
+    { name: 'APROBADO', value: '2' },
+  ];
   const { id } = useParams(); // Extrae el ID de la URL (ej: /notes/123 → id = "123")
 
   useEffect(() => {
     const fetchData = async () => {
-      // Obtener usuario
-      /*const resUsers = await axios.get("http://localhost:4000/api/users");
-      setState((prev) => ({
-        ...prev,
-        users: resUsers.data.map((user) => user.username),
-        userSelected: resUsers.data[0]?.username || "",
-      }));*/
-
-      // Si hay un ID en la URL, cargar la nota
+      // ... (tu código existente para obtener usuarios)
+  
       if (id) {
         const resNote = await axios.get(
           `http://localhost:4000/api/notes/${id}`
@@ -41,6 +47,7 @@ function CreateNote() {
           userSelected: resNote.data.author,
           editing: true,
           _id: id,
+          approvalStatus: resNote.data.approvalStatus || '1', // Cargar el estado de aprobación
         }));
       }
     };
@@ -55,6 +62,7 @@ function CreateNote() {
       content: state.content,
       date: state.date,
       author: state.userSelected,
+      approvalStatus: state.approvalStatus, // Incluye el estado de aprobación
     };
 
     if (state.editing) {
@@ -127,6 +135,26 @@ function CreateNote() {
             onChange={onChangeDate}
           />
         </div>
+
+        <div className="form-group">
+        <label>Estado de Aprobación:</label>
+        <ButtonGroup>
+          {radios.map((radio, idx) => (
+            <ToggleButton
+              key={idx}
+              id={`radio-${radio.value}`}
+              type="radio"
+              variant={radio.value === '2' ? "outline-success" : "outline-danger"}
+              name="approvalStatus"
+              value={radio.value}
+              checked={state.approvalStatus === radio.value}
+              onChange={(e) => handleApprovalChange(e.currentTarget.value)}
+            >
+              {radio.name}
+            </ToggleButton>
+          ))}
+        </ButtonGroup>
+      </div>
 
         <form onSubmit={onSubmit}>
           <button type="submit" className="btn btn-primary">

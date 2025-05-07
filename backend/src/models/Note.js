@@ -11,9 +11,9 @@ const noteSchema = new Schema(
     date:{
         type: Date,
         default: Date.now,
-    }
-  },
-  {
+    },
+    approvalStatus: { type: String, default: '1' }, // Nuevo campo
+  },{
     timestamps: true,
   }
 );

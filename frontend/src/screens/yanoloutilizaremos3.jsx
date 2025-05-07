@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom"; // Importa Link
@@ -9,7 +9,7 @@ function TesistaFinalView() {
   return (
     <Container fluid>
       <Row>
-        {/* Sidebar */}
+        
         <Col
           style={{ width: "830px" }}
           className="bg-success text-white min-vh-100 p-3"
@@ -23,7 +23,7 @@ function TesistaFinalView() {
                       />
                       <h4 className="fw-bold"> TITES </h4>
                       <div className="mt-5">
-                      <h5>{usuario?.rol || 'Rol'}</h5> {/* Mostrar el rol del usuario */}
+                      <h5>{usuario?.rol || 'Rol'}</h5> 
                         <small>{usuario?.rol ? 'USUARIO:' + usuario.rol : 'Rol'}</small>
                       </div>
                     </div>
@@ -49,10 +49,10 @@ function TesistaFinalView() {
           </div>
         </Col>
 
-      {/*F003*/}
+
         <Col md={10} className="p-4">
           <h4 className="mb-4">F.003</h4>
-          {/*PRIMERA PERSONA --------------------------------------------------------------------*/}
+          
           <Card className="mb-3" style={{ backgroundColor: "#c8facc" }}>
             <Card.Body className="d-flex align-items-center justify-content-between">
               <div>
@@ -87,7 +87,7 @@ function TesistaFinalView() {
               </div>
             </Card.Body>
           </Card>
-          {/*SEGUNDA PERSONA----------------------------------------------------*/}
+         
           <Card className="mb-3" style={{ backgroundColor: "#c8facc" }}>
             <Card.Body className="d-flex align-items-center justify-content-between">
               <div>
@@ -111,7 +111,7 @@ function TesistaFinalView() {
             </Card.Body>
           </Card>
 
-          {/*F004*/}
+         
           <h4 className="mt-5">F.004</h4>
 
           <Card className="mb-3" style={{ backgroundColor: "#c8facc" }}>
@@ -166,3 +166,5 @@ function TesistaFinalView() {
 }
 
 export default TesistaFinalView;
+
+*/

@@ -6,10 +6,10 @@ import Noteslist from "./components/NotesList.jsx";
 import CreateNote from "./components/CreateNote";
 import CreateUser from "./components/CreateUser";
 import TesistaView from "./screens/tesista-view.jsx";
-import TesistaFinalView from "./screens/tesista-view-carpetafinal.jsx";
-import Finalview from "./screens/final-view.jsx";
+import MetodologoF003 from "./screens/metodologo-F003.jsx";
 import Login from "./screens/login.jsx";
 import Navigation from "./components/Navigation"; // Importa tu componente Navigation
+import MetodologoF004 from "./screens/metodologo-F004.jsx";
 
 function App() {
   
@@ -30,8 +30,8 @@ function App() {
                   <Route path="/create" element={<CreateNote />} />
                   <Route path="/user" element={<CreateUser />} />
                   <Route path="/TesistaView" element={<TesistaView />} />
-                  <Route path="/TesistaFinalView" element={<TesistaFinalView />} />
-                  <Route path="/Finalview" element={<Finalview />} />
+                  <Route path="/MetodologoF003" element={<MetodologoF003 />} />
+                  <Route path="/MetodologoF004" element={<MetodologoF004 />} />
                 </Routes>
               </div>
             </>

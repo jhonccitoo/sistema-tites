@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom"; // Importa Link
 
-function TesistaView() {
+function MetodologoF004() {
   const usuario = { rol: localStorage.getItem("userRole") };
   return (
     <Container fluid>
@@ -29,17 +29,15 @@ function TesistaView() {
           </div>
 
           <div className="d-grid gap-2">
-            <Link to="/TesistaView" className="btn btn-light text-start ">
-              Revisión
+            <Link to="/MetodologoF003" className="btn btn-light text-start ">
+              F.TITES 003
             </Link>
-            {usuario?.rol !== "tesista" && (
-              <Link
-                to="/TesistaFinalView"
-                className="btn btn-light text-start "
-              >
-                Carpeta Final
-              </Link>
-            )}
+            <Link
+              to="/MetodologoF004"
+              className="btn btn-light text-start active"
+            >
+              F.TITES 004
+            </Link>
           </div>
 
           <div className="mt-5 text-center">
@@ -51,7 +49,7 @@ function TesistaView() {
 
         {/* Main Content */}
         <Col md={10} className="p-4">
-          <h4 className="mb-4">F.003</h4>
+          <h4 className="mb-4">GRUPO 1</h4>
 
           <Card className="mb-3">
             <Card.Body className="d-flex align-items-center justify-content-between">
@@ -75,6 +73,12 @@ function TesistaView() {
                 </div>
               </div>
 
+              <textarea
+                placeholder="Comentarios"
+                className="form-control w-25 me-4"
+                style={{ height: "80px", resize: "none" }}
+              ></textarea>
+
               {usuario?.rol !== "tesista" && (
                 <div className="text-center me-4">
                   <small className="d-block fw-bold text-secondary">
@@ -92,14 +96,17 @@ function TesistaView() {
                 </div>
               )}
 
-              <textarea
-                placeholder="Comentarios"
-                className="form-control w-25"
-                style={{ height: "80px", resize: "none" }}
-              ></textarea>
+              <div className="text-center me-4">
+                <small className="d-block fw-bold text-secondary">
+                  MANDAR A CARPETA FINAL
+                </small>
+                <div className="d-flex gap-2 justify-content-center">
+                  <Button variant="outline-success">✉️</Button>
+                </div>
+              </div>
             </Card.Body>
           </Card>
-          <h4 className="mt-5">F.004</h4>
+          <h4 className="mt-5">GRUPO 2</h4>
 
           <Card className="mb-3">
             <Card.Body className="d-flex align-items-center justify-content-between">
@@ -123,6 +130,12 @@ function TesistaView() {
                 </div>
               </div>
 
+              <textarea
+                placeholder="Comentarios"
+                className="form-control w-25 me-4"
+                style={{ height: "80px", resize: "none" }}
+              ></textarea>
+
               {usuario?.rol !== "tesista" && (
                 <div className="text-center me-4">
                   <small className="d-block fw-bold text-secondary">
@@ -139,11 +152,15 @@ function TesistaView() {
                   </div>
                 </div>
               )}
-              <textarea
-                placeholder="Comentarios"
-                className="form-control w-25"
-                style={{ height: "80px", resize: "none" }}
-              ></textarea>
+
+              <div className="text-center me-4">
+                <small className="d-block fw-bold text-secondary">
+                  MANDAR A CARPETA FINAL
+                </small>
+                <div className="d-flex gap-2 justify-content-center">
+                  <Button variant="outline-success">✉️</Button>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </Col>
@@ -152,4 +169,4 @@ function TesistaView() {
   );
 }
 
-export default TesistaView;
+export default MetodologoF004;
