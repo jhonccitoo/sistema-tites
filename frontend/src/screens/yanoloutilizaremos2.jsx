@@ -120,7 +120,7 @@ function MensajeTesista({ nombre, mensaje, fondo = "#c8facc" }) {
   );
 }
 
-function Finalview() {
+function ASESORANTIGUO() {
   return (
     <Container fluid>
       <Row>
@@ -250,4 +250,4 @@ function Finalview() {
   );
 }
 
-export default Finalview;
+export default ASESORANTIGUO;

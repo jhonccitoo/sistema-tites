@@ -47,7 +47,7 @@ const Login = () => {
           } else if (userRole === 'admin') {
             navigate('/user');   // Redirige admin
           } else if (userRole === 'asesor') {
-             navigate('/notas'); // O redirige a notas por ahora
+             navigate('/asesor'); // O redirige a notas por ahora
           } else if (userRole === 'tesista') {
             navigate('/TesistaView'); // Redirige tesista
           } else if (userRole === 'revisor1') {

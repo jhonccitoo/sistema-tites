@@ -4,7 +4,8 @@ import { format } from "timeago.js";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom";
-
+import foto from "../assets/foto.jpg";
+import asesor from "../assets/asesor.webp";
 export default class Noteslist extends Component {
   state = {
     notes: [],
@@ -22,9 +23,11 @@ export default class Noteslist extends Component {
 
   async getNotes() {
     const res = await axios.get("http://localhost:4000/api/notes");
-    this.setState({ notes: res.data }, () => { // Callback después de obtener las notas
+    this.setState({ notes: res.data }, () => {
+      // Callback después de obtener las notas
       const userRole = localStorage.getItem("userRole");
-      if (userRole === "asesor") { // Reemplaza "asesor" con el rol correcto
+      if (userRole === "asesor") {
+        // Reemplaza "asesor" con el rol correcto
         this.setState({ activeFilter: "F.TITES 003" });
       }
     });
@@ -64,6 +67,18 @@ export default class Noteslist extends Component {
                 style={{ maxWidth: "150px" }}
               />
               <h4 className="fw-bold"> TITES </h4>
+        
+              <img
+                src={asesor}
+                className="img-fluid mb-2"
+                alt="Foto Asesor"
+                style={{
+                  maxWidth: "150px",
+                  borderRadius: "50%",
+                  marginTop: 35,
+                }}
+              />
+
               <div className="mt-5">
                 <h5>{usuario?.rol || "Rol"}</h5>{" "}
                 <small>{usuario?.rol ? "USUARIO:" + usuario.rol : "Rol"}</small>
@@ -128,7 +143,6 @@ export default class Noteslist extends Component {
                   <Card className="mb-3">
                     <Card.Body className="d-flex flex-column">
                       {" "}
-                      {/* Cambiado a flex-column para apilar elementos */}
                       <div className="d-flex justify-content-between align-items-start mb-2">
                         <div>
                           <h5 className="mb-0">{note.title}</h5>
@@ -178,6 +192,10 @@ export default class Noteslist extends Component {
                             </Button>
                           </div>
                         </div>
+
+                        <small className="text-muted me-3">
+                          {format(note.date)}
+                        </small>
 
                         <textarea
                           placeholder="Comentarios"

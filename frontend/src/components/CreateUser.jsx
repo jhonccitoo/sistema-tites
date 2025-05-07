@@ -127,12 +127,10 @@ function CreateUser() {
               />
             </div>
 
-            {/* Botón de Guardar */}
             <button type="submit" className="btn btn-primary" disabled={isLoading}>
               {isLoading ? 'Saving...' : 'Save User'}
             </button>
 
-             {/* Mostrar Errores */}
              {error && <div className="alert alert-danger mt-3">{error}</div>}
 
           </form>
@@ -151,7 +149,6 @@ function CreateUser() {
               key={user._id}
             >
               <span>{user.username}</span>
-              {/* Botón explícito para eliminar */}
               <button
                 className="btn btn-danger btn-sm"
                 onClick={() => deleteUser(user._id)}
