@@ -160,16 +160,16 @@ export default class Noteslist extends Component {
                       <div className="d-flex align-items-center mb-3">
                         <div className="text-center me-4">
                           <small className="d-block fw-bold text-secondary">
-                            DESCARGAR
+                            FORMULARIO 
                           </small>
                           <div className="d-flex gap-2 justify-content-center">
                             <Button
                               variant="outline-success"
                               size="sm"
-                              onClick={() =>
-                                this.handleRedireccionar(
+                              onClick={() => 
+                                {usuario?.rol == "tesista" && ( this.handleRedireccionar(
                                   "https://drive.google.com/drive/folders/1X4THssnsB4ZqGrzBd2H473U_GIHa1b12?usp=drive_link"
-                                )
+                                ) ) }
                               }
                             >
                               ⬇

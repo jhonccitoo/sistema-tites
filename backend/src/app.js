@@ -14,7 +14,7 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
-  console.log('MongoDB database connection established successfully');
+ console.log('MongoDB database connection established successfully');
 });
 
 const usersRouter = require('./routes/users');
@@ -26,7 +26,3 @@ app.use('/api/auth', authRouter); // Usa el prefijo /api/auth para las rutas de 
 app.use('/api/notes', notesRouter); // !!! MONTA EL ENRUTADOR DE NOTAS EN LA RUTA /api/notes !!!
 
 module.exports = app;
-
-//app.listen(port, () => {
-// console.log(`Server is running on port: ${port}`);
-//});
