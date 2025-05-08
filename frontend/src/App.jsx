@@ -16,7 +16,8 @@ import TarjetaTesista from "./screens/asesor-carpetafinal.jsx";
 
 function App() {
   return (
-    <Router>
+    /*
+    <Router> 
       <Navigation />
       <div className="container p-4">
         <Routes>
@@ -27,12 +28,13 @@ function App() {
         </Routes>
       </div>
     </Router>
+    */
 
-    /*   <div>
+         <div>
       <Login />
     </div>
-     */
+     
   );
 }
 
-export default App;
+export default App; 
