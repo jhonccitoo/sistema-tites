@@ -4,8 +4,8 @@ import { format } from "timeago.js";
 import { Container, Row, Col, Button, Card, ListGroup } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom";
-import foto from "../assets/foto.jpg";
 import asesor from "../assets/asesor.webp";
+
 export default class Noteslist extends Component {
   state = {
     notes: [],
@@ -153,7 +153,7 @@ export default class Noteslist extends Component {
                             className="btn btn-secondary btn-sm"
                             to={`/edit/${note._id}`}
                           >
-                            Edit
+                            Calificar
                           </Link>
                         )}
                       </div>

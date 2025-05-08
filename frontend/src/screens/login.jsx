@@ -59,9 +59,9 @@ const Login = () => {
           } else if (userRole === 'coordinador general') {
              navigate('/user'); // O redirige a notas por ahora
           } else if (userRole === 'secretaria') {
-            navigate('/TesistaView'); // Redirige tesista
+            navigate('/notas'); // Redirige tesista
           } else if (userRole === 'metodologo') {
-            navigate('/MetodologoF003');   // Redirige admin
+            navigate('/MetodologoView');   // Redirige admin
           } else{
             console.warn('Rol de usuario no reconocido, redirigiendo a /notas');
             navigate('/notas');

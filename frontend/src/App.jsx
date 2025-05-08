@@ -8,8 +8,7 @@ import CreateUser from "./components/CreateUser";
 import TesistaView from "./screens/tesista-view.jsx";
 import Login from "./screens/login.jsx";
 import Navigation from "./components/Navigation"; // Importa tu componente Navigation
-import MetodologoF003 from "./screens/metodologo-F003.jsx";
-import MetodologoF004 from "./screens/metodologo-F004.jsx";
+import MetodologoView from "./screens/metodologo-view.jsx";
 import Asesor from "./screens/asesor-view.jsx";
 
 function App() {
@@ -31,8 +30,7 @@ function App() {
                   <Route path="/create" element={<CreateNote />} />
                   <Route path="/user" element={<CreateUser />} />
                   <Route path="/TesistaView" element={<TesistaView />} />
-                  <Route path="/MetodologoF003" element={<MetodologoF003 />} />
-                  <Route path="/MetodologoF004" element={<MetodologoF004 />} />
+                  <Route path="/MetodologoView" element={<MetodologoView />} />
                   <Route path="/asesor" element={<Asesor/>} />
                 </Routes>
               </div>

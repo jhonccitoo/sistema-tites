@@ -6,7 +6,7 @@ import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom";
 import asesor from "../assets/asesor.webp";
 
-export default class TesistaView extends Component {
+export default class MetodologoView extends Component {
   state = {
     notes: [],
     filterTerm: "", // Para un campo de búsqueda
@@ -26,10 +26,7 @@ export default class TesistaView extends Component {
     this.setState({ notes: res.data }, () => {
       // Callback después de obtener las notas
       const userRole = localStorage.getItem("userRole");
-      if (userRole === "tesista") {
-        // Reemplaza "asesor" con el rol correcto
-        this.setState({ activeFilter: "GRUPO 1" });
-      }
+        this.setState({ activeFilter: "F.TITES 003" });
     });
   }
 
@@ -88,57 +85,15 @@ export default class TesistaView extends Component {
             <div className="d-grid gap-2">
               <Button
                 variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 003")}
+                onClick={() => this.handleFilterByTitle("F.TITES 003")}
               >
                 Filtrar por F.TITES 003
               </Button>
               <Button
                 variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 004")}
+                onClick={() => this.handleFilterByTitle("F.TITES 004")}
               >
                 Filtrar por F.TITES 004
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 005")}
-              >
-                Filtrar por F.TITES 005
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 008")}
-              >
-                Filtrar por F.TITES 008
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 009")}
-              >
-                Filtrar por F.TITES 009
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 012")}
-              >
-                Filtrar por F.TITES 012
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 0013")}
-              >
-                Filtrar por F.TITES 0012
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - F.TITES 0016")}
-              >
-                Filtrar por F.TITES 0016
-              </Button>
-              <Button
-                variant="outline-light"
-                onClick={() => this.handleFilterByTitle("GRUPO 1 - Estilos")}
-              >
-                Filtrar por Estilos
               </Button>
             </div>
             <div className="mt-5 text-center">

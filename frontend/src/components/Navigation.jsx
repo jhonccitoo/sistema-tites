@@ -12,7 +12,9 @@ export default class Navigation extends Component {
             <Container>
               <Navbar.Brand href="/">TITES - URP</Navbar.Brand>
               <Nav className="me-right">
+              {usuario?.rol == 'admin' && (
                 <Nav.Link href="/notas">Formularios</Nav.Link>
+              )}
                 {usuario?.rol !== 'tesista' && (
                 <Nav.Link href="/create">Crear Formularios</Nav.Link>
                 )}
