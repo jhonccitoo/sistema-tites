@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [formValidated, setFormValidated] = useState(false);
@@ -12,6 +13,15 @@ const Login = () => {
 
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
+
+  useEffect(() => {
+    // ✅ Previene volver con botón "atrás"
+    window.history.pushState(null, '', window.location.href);
+    window.onpopstate = () => {
+      window.history.go(1);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,72 +30,70 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    setLoginError(''); 
+    setLoginError('');
 
     if (!form.checkValidity()) {
       e.stopPropagation();
-      setFormValidated(true); 
+      setFormValidated(true);
     } else {
       try {
         const response = await axios.post('http://localhost:4000/api/auth/login', formData);
-        console.log('Datos de la respuesta (ÉXITO):', response.data); // Depuración
-  
+        console.log('Datos de la respuesta (ÉXITO):', response.data);
+
         if (response.data.token && response.data.user) {
-          
           localStorage.setItem('authToken', response.data.token);
-
-          // Obtén el rol del usuario
           const userRole = response.data.user.username;
-
-          // (Opcional) Guarda el rol si lo necesitas en otras partes de la app
           localStorage.setItem('userRole', userRole);
 
-          // --- LÓGICA DE REDIRECCIÓN ---
-          console.log(`Usuario logueado con rol: ${userRole}`); // Depuración
-          if (userRole === 'TESISTA') {
-            navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'admin') {
-            navigate('/user');   // Redirige admin
-          } else if (userRole === 'asesor') {
-             navigate('/asesor'); // O redirige a notas por ahora
-          } else if (userRole === 'tesista') {
-            navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'revisor1') {
-            navigate('/Finalview');   // Redirige admin
-          } else if (userRole === 'revisor2') {
-             navigate('/TesistaView'); // O redirige a notas por ahora
-          } else if (userRole === 'coordinador academico') {
-            navigate('/TesistaView');   // Redirige admin
-          } else if (userRole === 'coordinador general') {
-             navigate('/user'); // O redirige a notas por ahora
-          } else if (userRole === 'secretaria') {
-            navigate('/notas'); // Redirige tesista
-          } else if (userRole === 'metodologo') {
-            navigate('/MetodologoView');   // Redirige admin
-          } else{
-            console.warn('Rol de usuario no reconocido, redirigiendo a /notas');
-            navigate('/notas');
+          login();
+
+          console.log(`Usuario logueado con rol: ${userRole}`);
+          switch (userRole.toLowerCase()) {
+            case 'tesista':
+              navigate('/TesistaView');
+              break;
+            case 'admin':
+              navigate('/user');
+              break;
+            case 'asesor':
+              navigate('/asesor');
+              break;
+            case 'revisor1':
+              navigate('/Finalview');
+              break;
+            case 'revisor2':
+            case 'coordinador academico':
+              navigate('/TesistaView');
+              break;
+            case 'coordinador general':
+              navigate('/user');
+              break;
+            case 'secretaria':
+              navigate('/notas');
+              break;
+            case 'metodologo':
+              navigate('/MetodologoView');
+              break;
+            default:
+              console.warn('Rol no reconocido, redirigiendo a /notas');
+              navigate('/notas');
           }
-          // --- FIN LÓGICA DE REDIRECCIÓN ---
         } else {
-          // La respuesta del backend no tiene la estructura esperada
           console.error('Respuesta del backend incompleta:', response.data);
           setLoginError('Error en los datos recibidos del servidor.');
         }
-
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
         let errorMessage = 'Error al iniciar sesión. Inténtelo de nuevo.';
-        // Intenta obtener el mensaje de error específico del backend si existe
         if (error.response?.data?.message) {
           errorMessage = error.response.data.message;
         } else if (error.message) {
-             errorMessage = error.message; // Error de red u otro
+          errorMessage = error.message;
         }
         setLoginError(errorMessage);
       }
     }
- setFormValidated(true);
+    setFormValidated(true);
   };
 
 
