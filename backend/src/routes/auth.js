@@ -1,7 +1,7 @@
 // Ejemplo en routes/auth.js (o donde definas la ruta de login)
 const router = require('express').Router();
 const User = require('../models/User'); // Ajusta la ruta
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); // Si usas JWT
 
 router.post('/login', async (req, res) => {
