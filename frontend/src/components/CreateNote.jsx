@@ -37,7 +37,7 @@ function CreateNote() {
   
       if (id) {
         const resNote = await axios.get(
-          `http://localhost:4000/api/notes/${id}`
+          `https://tites-back.onrender.com/api/notes/${id}`
         );
         setState((prev) => ({
           ...prev,
@@ -66,9 +66,9 @@ function CreateNote() {
     };
 
     if (state.editing) {
-      await axios.put(`http://localhost:4000/api/notes/${state._id}`, newNote);
+      await axios.put(`https://tites-back.onrender.com/api/notes/${state._id}`, newNote);
     } else {
-      await axios.post("http://localhost:4000/api/notes", newNote);
+      await axios.post("https://tites-back.onrender.com/api/notes", newNote);
     }
 
     window.location.href = "/notas";

@@ -21,7 +21,7 @@ export default class Noteslist extends Component {
   }
 
   async getNotes() {
-    const res = await axios.get("http://localhost:4000/api/notes");
+    const res = await axios.get("https://tites-back.onrender.com/api/notes");
     this.setState({ notes: res.data }, () => { // Callback después de obtener las notas
       const userRole = localStorage.getItem("userRole");
       if (userRole === "asesor") { // Reemplaza "asesor" con el rol correcto
@@ -31,7 +31,7 @@ export default class Noteslist extends Component {
   }
 
   deleteNote = async (id) => {
-    await axios.delete(`http://localhost:4000/api/notes/${id}`);
+    await axios.delete(`https://tites-back.onrender.com/api/notes/${id}`);
     this.getNotes();
   };
 
