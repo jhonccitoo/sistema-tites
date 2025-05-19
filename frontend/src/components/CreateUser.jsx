@@ -15,7 +15,7 @@ function CreateUser() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await axios.get('https://tites-back.onrender.com/api/users');
+      const res = await axios.get('http://localhost:4000/api/users');
       setUsers(res.data);
     } catch (err) {
       console.error('Error fetching users:', err);
@@ -54,7 +54,7 @@ function CreateUser() {
 
     try {
       // Envía username Y password al backend
-      await axios.post('https://tites-back.onrender.com/api/users', {
+      await axios.post('http://localhost:4000/api/users', {
         username: username,
         password: password, // Envía la contraseña
       });
@@ -80,7 +80,7 @@ function CreateUser() {
     setIsLoading(true);
     setError(null);
     try {
-      await axios.delete(`https://tites-back.onrender.com/api/users/${id}`);
+      await axios.delete(`http://localhost:4000/api/users/${id}`);
       await getUsers(); // Recarga la lista
     } catch (err) {
       console.error('Error deleting user:', err);
