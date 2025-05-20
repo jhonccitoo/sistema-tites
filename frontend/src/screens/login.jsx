@@ -51,9 +51,9 @@ const Login = () => {
           } else if (userRole === 'tesista') {
             navigate('/TesistaView'); // Redirige tesista
           } else if (userRole === 'revisor1') {
-            navigate('/Finalview');   // Redirige admin
+            navigate('/revisor1');   // Redirige admin
           } else if (userRole === 'revisor2') {
-             navigate('/TesistaView'); // O redirige a notas por ahora
+            navigate('/revisor2'); // O redirige a notas por ahora
           } else if (userRole === 'coordinador academico') {
             navigate('/TesistaView');   // Redirige admin
           } else if (userRole === 'coordinador general') {

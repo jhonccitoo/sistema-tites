@@ -9,7 +9,11 @@ import TesistaView from "./screens/tesista-view.jsx";
 import Login from "./screens/login.jsx";
 import Navigation from "./components/Navigation"; // Importa tu componente Navigation
 import MetodologoView from "./screens/metodologo-view.jsx";
+import Revisor1View from "./screens/revisor1-view.jsx";
+import Revisor2View from "./screens/revisor2-view.jsx";
 import Asesor from "./screens/asesor-view.jsx";
+
+
 
 function App() {
   
@@ -32,6 +36,8 @@ function App() {
                   <Route path="/TesistaView" element={<TesistaView />} />
                   <Route path="/MetodologoView" element={<MetodologoView />} />
                   <Route path="/asesor" element={<Asesor/>} />
+                  <Route path="/revisor1" element={<Revisor1View/>} />
+                  <Route path="/revisor2" element={<Revisor2View/>} />
                 </Routes>
               </div>
             </>
