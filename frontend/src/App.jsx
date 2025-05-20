@@ -10,7 +10,7 @@ import Login from "./screens/login.jsx";
 import Navigation from "./components/Navigation"; // Importa tu componente Navigation
 import MetodologoView from "./screens/metodologo-view.jsx";
 import Asesor from "./screens/asesor-view.jsx";
-
+import Matricula from "./screens/matricula.jsx";
 function App() {
   
   return (
@@ -32,6 +32,7 @@ function App() {
                   <Route path="/TesistaView" element={<TesistaView />} />
                   <Route path="/MetodologoView" element={<MetodologoView />} />
                   <Route path="/asesor" element={<Asesor/>} />
+                  <Route path="/matricula" element={<Matricula />} /> 
                 </Routes>
               </div>
             </>
