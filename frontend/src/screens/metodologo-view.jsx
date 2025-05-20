@@ -66,13 +66,73 @@ export default function MetodologoView() {
             </div>
           </div>
 
-          <div className="d-grid gap-2">
-            <Button variant="outline-light" onClick={() => handleFilterByTitle("F.TITES 003")}>
-              Filtrar por F.TITES 003
-            </Button>
-            <Button variant="outline-light" onClick={() => handleFilterByTitle("F.TITES 004")}>
-              Filtrar por F.TITES 004
-            </Button>
+          {/* Barra funcional del metodólogo */}
+          <div className="mt-4">
+            <h6 className="text-white text-center">Accesos rápidos</h6>
+            <ul className="list-unstyled text-white ps-3">
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() => handleFilterByTitle("F.TITES 003")}
+                >
+                  📄 Filtrar F.TITES 003
+                </Button>
+              </li>
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() => handleFilterByTitle("F.TITES 004")}
+                >
+                  📄 Filtrar F.TITES 004
+                </Button>
+              </li>
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() => handleFilterByTitle("")}
+                >
+                  📄 Ver todos los formularios
+                </Button>
+              </li>
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() =>
+                    handleRedireccionar("https://drive.google.com/drive/folders/1iNe9_5MSC0yr-Tv1KQQx4NxqKtXnECVR?usp=sharing")
+                  }
+                >
+                  📁 Carpeta Final
+                </Button>
+              </li>
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() => alert("Módulo de estadísticas en construcción")}
+                >
+                  📊 Ver estadísticas
+                </Button>
+              </li>
+              <li>
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="my-1 w-100"
+                  onClick={() => alert("Historial por estudiante en desarrollo")}
+                >
+                  📜 Historial por estudiante
+                </Button>
+              </li>
+            </ul>
           </div>
 
           <div className="mt-5 text-center">
