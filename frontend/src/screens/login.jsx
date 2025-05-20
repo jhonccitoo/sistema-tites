@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [formValidated, setFormValidated] = useState(false);
@@ -12,6 +13,51 @@ const Login = () => {
 
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
+
+  // Evita volver atrás con el navegador una vez en login
+  useEffect(() => {
+    window.history.pushState(null, '', window.location.href);
+    window.onpopstate = () => {
+      window.history.go(1);
+    };
+  }, []);
+
+  // Redirige automáticamente si ya está logueado
+  useEffect(() => {
+    if (isAuthenticated) {
+      const role = localStorage.getItem("userRole");
+      switch (role?.toLowerCase()) {
+        case 'tesista':
+          navigate('/TesistaView', { replace: true });
+          break;
+        case 'admin':
+          navigate('/user', { replace: true });
+          break;
+        case 'asesor':
+          navigate('/asesor', { replace: true });
+          break;
+        case 'revisor1':
+          navigate('/Finalview', { replace: true });
+          break;
+        case 'revisor2':
+        case 'coordinador academico':
+          navigate('/TesistaView', { replace: true });
+          break;
+        case 'coordinador general':
+          navigate('/user', { replace: true });
+          break;
+        case 'secretaria':
+          navigate('/notas', { replace: true });
+          break;
+        case 'metodologo':
+          navigate('/MetodologoView', { replace: true });
+          break;
+        default:
+          navigate('/notas', { replace: true });
+      }
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,72 +66,64 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    setLoginError(''); 
+    setLoginError('');
 
     if (!form.checkValidity()) {
       e.stopPropagation();
-      setFormValidated(true); 
+      setFormValidated(true);
     } else {
       try {
         const response = await axios.post('http://localhost:4000/api/auth/login', formData);
-        console.log('Datos de la respuesta (ÉXITO):', response.data); // Depuración
-  
         if (response.data.token && response.data.user) {
-          
           localStorage.setItem('authToken', response.data.token);
-
-          // Obtén el rol del usuario
           const userRole = response.data.user.username;
-
-          // (Opcional) Guarda el rol si lo necesitas en otras partes de la app
           localStorage.setItem('userRole', userRole);
+          login();
 
-          // --- LÓGICA DE REDIRECCIÓN ---
-          console.log(`Usuario logueado con rol: ${userRole}`); // Depuración
-          if (userRole === 'TESISTA') {
-            navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'admin') {
-            navigate('/user');   // Redirige admin
-          } else if (userRole === 'asesor') {
-             navigate('/asesor'); // O redirige a notas por ahora
-          } else if (userRole === 'tesista') {
-            navigate('/TesistaView'); // Redirige tesista
-          } else if (userRole === 'revisor1') {
-            navigate('/Finalview');   // Redirige admin
-          } else if (userRole === 'revisor2') {
-             navigate('/TesistaView'); // O redirige a notas por ahora
-          } else if (userRole === 'coordinador academico') {
-            navigate('/TesistaView');   // Redirige admin
-          } else if (userRole === 'coordinador general') {
-             navigate('/user'); // O redirige a notas por ahora
-          } else if (userRole === 'secretaria') {
-            navigate('/notas'); // Redirige tesista
-          } else if (userRole === 'metodologo') {
-            navigate('/MetodologoView');   // Redirige admin
-          } else{
-            console.warn('Rol de usuario no reconocido, redirigiendo a /notas');
-            navigate('/notas');
+          switch (userRole.toLowerCase()) {
+            case 'tesista':
+              navigate('/TesistaView', { replace: true });
+              break;
+            case 'admin':
+              navigate('/user', { replace: true });
+              break;
+            case 'asesor':
+              navigate('/asesor', { replace: true });
+              break;
+            case 'revisor1':
+              navigate('/Finalview', { replace: true });
+              break;
+            case 'revisor2':
+            case 'coordinador academico':
+              navigate('/TesistaView', { replace: true });
+              break;
+            case 'coordinador general':
+              navigate('/user', { replace: true });
+              break;
+            case 'secretaria':
+              navigate('/notas', { replace: true });
+              break;
+            case 'metodologo':
+              navigate('/MetodologoView', { replace: true });
+              break;
+            default:
+              console.warn('Rol no reconocido, redirigiendo a /notas');
+              navigate('/notas', { replace: true });
           }
-          // --- FIN LÓGICA DE REDIRECCIÓN ---
         } else {
-          // La respuesta del backend no tiene la estructura esperada
-          console.error('Respuesta del backend incompleta:', response.data);
           setLoginError('Error en los datos recibidos del servidor.');
         }
-
       } catch (error) {
-        console.error('Error al iniciar sesión:', error);
         let errorMessage = 'Error al iniciar sesión. Inténtelo de nuevo.';
-        // Intenta obtener el mensaje de error específico del backend si existe
         if (error.response?.data?.message) {
           errorMessage = error.response.data.message;
         } else if (error.message) {
-             errorMessage = error.message; // Error de red u otro
+          errorMessage = error.message;
         }
         setLoginError(errorMessage);
       }
     }
- setFormValidated(true);
+    setFormValidated(true);
   };
 
 
@@ -227,62 +265,64 @@ const Login = () => {
     }
   `;
 
-  return (
+return (
     <>
       <style dangerouslySetInnerHTML={{ __html: style }} />
-      <main className="login-card" role="main">
-        <h1 className="login-title">TITES - URP</h1>
-        <form 
-          className={formValidated ? 'was-validated' : ''} 
-          noValidate 
-          onSubmit={handleSubmit}
-        >
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">Usuario</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              placeholder="Ingrese su usuario"
-              required
-              aria-required="true"
-              autoComplete="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <div className="invalid-feedback">Por favor ingrese su usuario</div>
-          </div>
+      {!isAuthenticated && (
+        <main className="login-card" role="main">
+          <h1 className="login-title">TITES - URP</h1>
+          <form 
+            className={formValidated ? 'was-validated' : ''} 
+            noValidate 
+            onSubmit={handleSubmit}
+          >
+            <div className="form-group">
+              <label htmlFor="username" className="form-label">Usuario</label>
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                name="username"
+                placeholder="Ingrese su usuario"
+                required
+                aria-required="true"
+                autoComplete="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+              <div className="invalid-feedback">Por favor ingrese su usuario</div>
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">Clave</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              placeholder="Ingrese su clave"
-              required
-              aria-required="true"
-              autoComplete="current-password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <div className="invalid-feedback">Por favor ingrese su clave</div>
-          </div>
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">Clave</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Ingrese su clave"
+                required
+                aria-required="true"
+                autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div className="invalid-feedback">Por favor ingrese su clave</div>
+            </div>
 
-          <button type="submit" className="btn btn-login w-100 mt-3">
-            <span className="btn-text">Ingresar</span>
-            <span className="sr-only">al sistema TITES</span>
-          </button>
+            <button type="submit" className="btn btn-login w-100 mt-3">
+              <span className="btn-text">Ingresar</span>
+              <span className="sr-only">al sistema TITES</span>
+            </button>
 
-          <button type="button" className="btn btn-register">
-            Registrarse
-          </button>
+            <button type="button" className="btn btn-register">
+              Registrarse
+            </button>
 
-          <a href="#" className="forgot-password">¿Olvidó su contraseña?</a>
-        </form>
-      </main>
+            <a href="#" className="forgot-password">¿Olvidó su contraseña?</a>
+          </form>
+        </main>
+      )}
     </>
   );
 };
