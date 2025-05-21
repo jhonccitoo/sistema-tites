@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
 import logoUniversidad from "../assets/logo-urp1.png";
 import { Link } from "react-router-dom";
 import asesor from "../assets/asesor.webp";
@@ -11,7 +11,14 @@ export default class Noteslist extends Component {
     notes: [],
     filterTerm: "",
     activeFilter: "",
-    noteUIState: {}, // Estado de botones
+    noteUIState: {},
+    noteContent: {},
+    showModal: false,
+    modalContent: {
+      title: "",
+      content: "",
+      estado: "",
+    },
   };
 
   handleFilterByTitle = (searchTerm) => {
@@ -26,22 +33,28 @@ export default class Noteslist extends Component {
     try {
       const res = await axios.get("http://localhost:4000/api/notes");
       const noteUIStateInicial = {};
+      const noteContentInicial = {};
       res.data.forEach((note) => {
         noteUIStateInicial[note._id] = {
           aprobado: note.approvalStatus === "2",
           desaprobado: note.approvalStatus === "1",
         };
+        noteContentInicial[note._id] = note.content;
       });
 
-      this.setState({ 
-        notes: res.data, 
-        noteUIState: noteUIStateInicial 
-      }, () => {
-        const userRole = localStorage.getItem("userRole");
-        if (userRole === "asesor") {
-          this.setState({ activeFilter: "F.TITES 003" });
+      this.setState(
+        {
+          notes: res.data,
+          noteUIState: noteUIStateInicial,
+          noteContent: noteContentInicial,
+        },
+        () => {
+          const userRole = localStorage.getItem("userRole");
+          if (userRole === "asesor") {
+            this.setState({ activeFilter: "F.TITES 003" });
+          }
         }
-      });
+      );
     } catch (error) {
       console.error("Error al obtener las notas:", error);
       alert("Ocurrió un error al obtener las notas.");
@@ -64,9 +77,14 @@ export default class Noteslist extends Component {
 
   actualizarEstadoAprobacion = async (id, status) => {
     try {
+      const contenido = this.state.noteContent[id];
       await axios.put(`http://localhost:4000/api/notes/${id}`, {
         approvalStatus: status,
+        content: contenido,
       });
+
+      const note = this.state.notes.find((n) => n._id === id);
+      const estadoTexto = status === "2" ? "Aprobado" : "Desaprobado";
 
       this.setState((prevState) => ({
         noteUIState: {
@@ -76,6 +94,12 @@ export default class Noteslist extends Component {
             desaprobado: status === "1",
           },
         },
+        showModal: true,
+        modalContent: {
+          title: note.title,
+          content: contenido,
+          estado: estadoTexto,
+        },
       }));
     } catch (error) {
       console.error("Error al actualizar aprobación:", error);
@@ -83,9 +107,13 @@ export default class Noteslist extends Component {
     }
   };
 
+  handleCloseModal = () => { // Para mostrar ventana flotante
+    this.setState({ showModal: false });
+  };
+
   render() {
     const usuario = { rol: localStorage.getItem("userRole") };
-    const { notes, activeFilter, noteUIState } = this.state;
+    const { notes, activeFilter, noteUIState, noteContent, showModal, modalContent } = this.state;
     const filteredNotes = activeFilter
       ? notes.filter((note) =>
           note.title.toLowerCase().includes(activeFilter.toLowerCase())
@@ -119,7 +147,9 @@ export default class Noteslist extends Component {
               />
               <div className="mt-5">
                 <h5>{usuario?.rol || "Rol"}</h5>
-                <small>{usuario?.rol ? "USUARIO: " + usuario.rol : "Rol"}</small>
+                <small>
+                  {usuario?.rol ? "USUARIO: " + usuario.rol : "Rol"}
+                </small>
               </div>
             </div>
 
@@ -227,35 +257,54 @@ export default class Noteslist extends Component {
                           style={{
                             height: "120px",
                             resize: "none",
-                            backgroundColor: noteUIState[note._id]?.desaprobado ? "#fff" : "#f0f0f0",
-                            cursor: noteUIState[note._id]?.desaprobado ? "text" : "not-allowed",
-                            opacity: noteUIState[note._id]?.desaprobado ? 1 : 0.6,
+                            backgroundColor: "#fff",
+                            cursor: "text",
                           }}
-                          defaultValue={note.content}
-                          disabled={!noteUIState[note._id]?.desaprobado}
+                          value={noteContent[note._id] || ""}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            this.setState((prevState) => ({
+                              noteContent: {
+                                ...prevState.noteContent,
+                                [note._id]: value,
+                              },
+                            }));
+                          }}
                         />
 
                         <div className="text-center me-4">
-                          <small className="d-block fw-bold text-secondary">APROBADO</small>
+                          <small className="d-block fw-bold text-secondary">
+                            APROBADO
+                          </small>
                           <div className="d-flex gap-2 justify-content-center">
                             <Button
                               variant={
-                                noteUIState[note._id]?.aprobado ? "success" : "outline-secondary"
+                                noteUIState[note._id]?.aprobado
+                                  ? "success"
+                                  : "outline-secondary"
                               }
                               size="sm"
-                              onClick={() => this.actualizarEstadoAprobacion(note._id, "2")}
+                              onClick={() =>
+                                this.actualizarEstadoAprobacion(note._id, "2")
+                              }
                             >
                               {noteUIState[note._id]?.aprobado ? "✔" : "☐"}
                             </Button>
                           </div>
-                          <small className="d-block fw-bold text-secondary mt-2">DESAPROBADO</small>
+                          <small className="d-block fw-bold text-secondary mt-2">
+                            DESAPROBADO
+                          </small>
                           <div className="d-flex gap-2 justify-content-center">
                             <Button
                               variant={
-                                noteUIState[note._id]?.desaprobado ? "danger" : "outline-secondary"
+                                noteUIState[note._id]?.desaprobado
+                                  ? "danger"
+                                  : "outline-secondary"
                               }
                               size="sm"
-                              onClick={() => this.actualizarEstadoAprobacion(note._id, "1")}
+                              onClick={() =>
+                                this.actualizarEstadoAprobacion(note._id, "1")
+                              }
                             >
                               {noteUIState[note._id]?.desaprobado ? "✘" : "☐"}
                             </Button>
@@ -271,14 +320,18 @@ export default class Noteslist extends Component {
                                 size="sm"
                                 disabled={!noteUIState[note._id]?.aprobado}
                                 style={{
-                                  opacity: noteUIState[note._id]?.aprobado ? 1 : 0.5,
-                                  cursor: noteUIState[note._id]?.aprobado ? "pointer" : "not-allowed",
+                                  opacity: noteUIState[note._id]?.aprobado
+                                    ? 1
+                                    : 0.5,
+                                  cursor: noteUIState[note._id]?.aprobado
+                                    ? "pointer"
+                                    : "not-allowed",
                                 }}
                                 onClick={() =>
                                   this.handleRedireccionar("https://drive.google.com/drive/folders/1iNe9_5MSC0yr-Tv1KQQx4NxqKtXnECVR?usp=sharing")
                                 }
                               >
-                               ✉️
+                                ✉️
                               </Button>
                             </div>
                           </div>
@@ -303,6 +356,22 @@ export default class Noteslist extends Component {
             </div>
           </Col>
         </Row>
+
+        <Modal show={showModal} onHide={this.handleCloseModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Nota actualizada</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p><strong>Título:</strong> {modalContent.title}</p>
+            <p><strong>Contenido:</strong> {modalContent.content}</p>
+            <p><strong>Estado:</strong> {modalContent.estado}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="success" onClick={this.handleCloseModal}>
+              Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     );
   }
