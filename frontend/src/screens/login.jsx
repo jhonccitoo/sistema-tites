@@ -48,13 +48,13 @@ const Login = () => {
           navigate('/user', { replace: true });
           break;
         case 'secretaria':
-          navigate('/notas', { replace: true });
+          navigate('/matricula', { replace: true });
           break;
         case 'metodologo':
           navigate('/MetodologoView', { replace: true });
           break;
         default:
-          navigate('/notas', { replace: true });
+          navigate('/matricula', { replace: true });
       }
     }
   }, [isAuthenticated, navigate]);
@@ -101,7 +101,7 @@ const Login = () => {
               navigate('/user', { replace: true });
               break;
             case 'secretaria':
-              navigate('/notas', { replace: true });
+              navigate('/matricula', { replace: true });
               break;
             case 'metodologo':
               navigate('/MetodologoView', { replace: true });

@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import NotesList from "./components/NotesList.jsx";
@@ -12,6 +11,7 @@ import MetodologoView from "./screens/metodologo-view.jsx";
 import Asesor from "./screens/asesor-view.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import Matricula from "./screens/matricula.jsx";
 
 function App() {
   return (
@@ -34,7 +34,8 @@ function App() {
                     <Route path="/TesistaView" element={<TesistaView />} />
                     <Route path="/MetodologoView" element={<MetodologoView />} />
                     <Route path="/asesor" element={<Asesor />} />
-                  </Routes>
+                    <Route path="/matricula" element={<Matricula />} /> 
+                </Routes>
                 </div>
               </>
               </PrivateRoute>
