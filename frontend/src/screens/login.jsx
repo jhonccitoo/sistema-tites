@@ -29,7 +29,7 @@ const Login = () => {
       const role = localStorage.getItem("userRole");
       switch (role?.toLowerCase()) {
         case 'tesista':
-          navigate('/TesistaView', { replace: true });
+          navigate('/', { replace: true });
           break;
         case 'admin':
           navigate('/user', { replace: true });
@@ -38,9 +38,11 @@ const Login = () => {
           navigate('/asesor', { replace: true });
           break;
         case 'revisor1':
-          navigate('/Finalview', { replace: true });
+          navigate('/revisor1', { replace: true });
           break;
         case 'revisor2':
+              navigate('/revisor2', { replace: true });
+          break;
         case 'coordinador academico':
           navigate('/TesistaView', { replace: true });
           break;
@@ -91,9 +93,11 @@ const Login = () => {
               navigate('/asesor', { replace: true });
               break;
             case 'revisor1':
-              navigate('/Finalview', { replace: true });
+              navigate('/revisor1', { replace: true });
               break;
             case 'revisor2':
+               navigate('/revisor2', { replace: true });
+              break;
             case 'coordinador academico':
               navigate('/TesistaView', { replace: true });
               break;

@@ -7,9 +7,10 @@ import asesor from "../assets/asesor.webp";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function TesistaView() {
+
+export default function revisor1() {
   const [notes, setNotes] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("GRUPO 1");
+  const [activeFilter, setActiveFilter] = useState("F.TITES 010");
 
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -49,51 +50,45 @@ export default function TesistaView() {
       )
     : notes;
 
-  return (
-    <Container fluid>
-      <Row>
-        {/* Sidebar */}
-        <Col style={{ width: "830px" }} className="bg-success text-white min-vh-100 p-3">
-          <div className="text-center mb-4">
-            <img src={logoUniversidad} className="img-fluid mb-2" alt="Logo Universidad" style={{ maxWidth: "150px" }} />
-            <h4 className="fw-bold"> TITES </h4>
-            <img src={asesor} className="img-fluid mb-2" alt="Foto Usuario" style={{ maxWidth: "150px", borderRadius: "50%", marginTop: 35 }} />
-            <div className="mt-5">
-              <h5>{usuario?.rol || "Rol"}</h5>
-              <small>{usuario?.rol ? "USUARIO:" + usuario.rol : "Rol"}</small>
+    return (
+      <Container fluid>
+        <Row>
+          {/* Sidebar */}
+           <Col style={{ width: "830px" }} className="bg-success text-white min-vh-100 p-3">
+                    <div className="text-center mb-4">
+                      <img src={logoUniversidad} className="img-fluid mb-2" alt="Logo Universidad" style={{ maxWidth: "150px" }} />
+                      <h4 className="fw-bold"> TITES </h4>
+                      <img src={asesor} className="img-fluid mb-2" alt="Foto Usuario" style={{ maxWidth: "150px", borderRadius: "50%", marginTop: 35 }} />
+                      <div className="mt-5">
+                        <h5>{usuario?.rol || "Rol"}</h5>
+                        <small>{usuario?.rol ? "USUARIO:" + usuario.rol : "Rol"}</small>
+                      </div>
+                    </div>
+
+             <div className="d-grid gap-2">
+                        {[
+                          "F.TITES 010",
+                          "F.TITES 012",
+                          "F.TITES 013",
+                          "Estilos",
+                        ].map((grupo) => (
+                          <Button
+                            key={grupo}
+                            variant="outline-light"
+                            onClick={() => handleFilterByTitle(`GRUPO 1 - ${grupo}`)}
+                          >
+                            Filtrar por {grupo}
+                          </Button>
+                        ))}
+                      </div>
+            
+             <div className="mt-5 text-center">
+                      <Button variant="outline-light" size="sm" onClick={handleLogout}>
+                        Salir
+                      </Button>
             </div>
-          </div>
-
-          <div className="d-grid gap-2">
-            {[
-              "F.TITES 003",
-              "F.TITES 004",
-              "F.TITES 005",
-              "F.TITES 008",
-              "F.TITES 009",
-              "F.TITES 010",
-              "F.TITES 012",
-              "F.TITES 013",
-              "Estilos",
-            ].map((grupo) => (
-              <Button
-                key={grupo}
-                variant="outline-light"
-                onClick={() => handleFilterByTitle(`GRUPO 1 - ${grupo}`)}
-              >
-                Filtrar por {grupo}
-              </Button>
-            ))}
-          </div>
-
-          <div className="mt-5 text-center">
-            <Button variant="outline-light" size="sm" onClick={handleLogout}>
-              Salir
-            </Button>
-          </div>
-        </Col>
-
-        <Col md={9} className="p-4">
+          </Col>
+    <Col md={9} className="p-4">
           <div className="row">
             {filteredNotes.map((note) => (
               <div className="col-md-12 p-2" key={note._id}>
